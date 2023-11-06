@@ -32,7 +32,7 @@ def maven(Map args) {
     }
     withSonarQubeEnv("${args.sonarQubeServerId}") {
         runMaven(
-            mavenConfigFileId: "${args.mavenConfigFileId}"
+            mavenConfigFileId: "${args.mavenConfigFileId}",
             cmd: "${args.mavenSonarGoal}"
         )
     }
