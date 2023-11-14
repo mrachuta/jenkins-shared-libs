@@ -1,14 +1,15 @@
 #!/usr/bin/env groovy
 
-def _checkQualityGateResult() {
+def checkQualityGateResult() {
     timeout(time: 30, unit: 'MINUTES') {
         def qg = waitForQualityGate()
         if (qg.status != 'OK') {
             unstable("Marking build as unstable due to quality gate failure: ${qg.status})")
-            sonarQGStatus = 'NOK'
+            sonarQgStatus = 'NOK'
         } else {
-            sonarQGStatus = qg.status
+            sonarQgStatus = qg.status
         }
+        return sonarQgStatus
     }
 }
 
@@ -23,7 +24,6 @@ def scanner(Map args) {
             sh('sonar-scanner')
         }
     }
-    _checkQualityGateResult()
 }
 
 def maven(Map args) {
@@ -36,5 +36,4 @@ def maven(Map args) {
             cmd: "${args.mavenSonarGoal}"
         )
     }
-    _checkQualityGateResult()
 }
