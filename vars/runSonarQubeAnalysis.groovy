@@ -4,7 +4,7 @@ def checkQualityGateResult() {
     timeout(time: 30, unit: 'MINUTES') {
         def qg = waitForQualityGate()
         if (qg.status != 'OK') {
-            unstable("Marking build as unstable due to quality gate failure: ${qg.status})")
+            unstable("Marking build as unstable due to quality gate failure: ${qg.status}")
             sonarQgStatus = 'NOK'
         } else {
             sonarQgStatus = qg.status
