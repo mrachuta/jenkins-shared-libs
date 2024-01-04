@@ -17,6 +17,7 @@ def call(Map args) {
             configLineProcessed = configLine.trim().split('=')
             def envKey = configLineProcessed.first().replaceAll("\"|\'|\'\$|\"\$", "")
             def envValue = configLineProcessed.last().replaceAll("\"|\'|\'\$|\"\$", "")
+            echo "Exposing environment variable ${envKey}..."
             env."${envKey}" = envValue
         }
     }
