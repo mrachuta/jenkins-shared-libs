@@ -20,7 +20,8 @@ def scanner(Map args) {
     def scannerHome = tool("${args.sonarScannerToolId}")
     def nodeHome = tool("${args.nodeJsToolId}")
     withEnv(["PATH+EXTRA=${scannerHome}/bin:${nodeHome}/bin"]) {
-        withSonarQubeEnv("${args.sonarQubeServerId}") {
+        // Issue: https://issues.jenkins.io/projects/JENKINS/issues/JENKINS-72513
+        withSonarQubeEnv([installationName: "${args.sonarQubeServerId}", envOnly: true]) {
             sh('sonar-scanner')
         }
     }
